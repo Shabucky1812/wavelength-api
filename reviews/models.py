@@ -5,7 +5,7 @@ from tracks.models import Track
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     track = models.ForeignKey(Track, on_delete=models.CASCADE)
     score = models.IntegerField(
         validators=[MaxValueValidator(100), MinValueValidator(0)])
