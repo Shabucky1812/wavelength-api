@@ -8,7 +8,7 @@ class Review(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     track = models.ForeignKey(Track, on_delete=models.CASCADE)
     score = models.IntegerField(
-        validators=[MaxValueValidator(100), MinValueValidator(0)])
+        validators=[MaxValueValidator(100), MinValueValidator(1)])
     opinion = models.TextField(max_length=500)
     reviewed_at = models.DateTimeField(auto_now=True)
 

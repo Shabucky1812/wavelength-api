@@ -15,6 +15,6 @@ class TrackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Track
         fields = [
-            'id', 'owner', 'track_ref', 'title', 'artist', 'cover_art', 'genre',
-            'opinion', 'is_owner', 'profile_id', 'profile_image'
+            'id', 'owner', 'track_ref', 'title', 'artist', 'cover_art',
+            'genre', 'opinion', 'is_owner', 'profile_id', 'profile_image'
         ]
