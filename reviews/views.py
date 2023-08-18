@@ -1,4 +1,4 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, serializers
 from wavelength.permissions import IsOwnerOrReadOnly
 from .models import Review
 from .serializers import ReviewSerializer, ReviewDetailSerializer
@@ -14,9 +14,10 @@ class ReviewList(generics.ListCreateAPIView):
         try:
             serializer.save(owner=self.request.user)
         except IntegrityError:
-            raise IntegrityError(
-                'You have already reviewed this track, '
-                'please edit your existing review instead.')
+            raise serializers.ValidationError(
+                {'detail':
+                 'user has already reviewed this track, '
+                 'please edit existing instead'})
 
 
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
