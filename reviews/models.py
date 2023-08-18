@@ -14,6 +14,7 @@ class Review(models.Model):
 
     class Meta:
         ordering = ['-reviewed_at']
+        unique_together = ['owner', 'track']
 
     def __str__(self):
         return self.opinion
