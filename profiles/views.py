@@ -1,42 +1,15 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import generics
 from .models import Profile
 from .serializers import ProfileSerializer
-from django.http import Http404
-from rest_framework import status
 from wavelength.permissions import IsOwnerOrReadOnly
 
 
-class ProfileList(APIView):
-    def get(self, request):
-        profiles = Profile.objects.all()
-        serializer = ProfileSerializer(
-            profiles, many=True, context={'request': request})
-        return Response(serializer.data)
-
-
-class ProfileDetail(APIView):
+class ProfileList(generics.ListAPIView):
+    queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+
+class ProfileDetail(generics.RetrieveUpdateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
-
-    def get_object(self, id):
-        try:
-            profile = Profile.objects.get(id=id)
-            self.check_object_permissions(self.request, profile)
-            return profile
-        except Profile.DoesNotExist:
-            raise Http404
-
-    def get(self, request, id):
-        profile = self.get_object(id)
-        serializer = ProfileSerializer(profile, context={'request': request})
-        return Response(serializer.data)
-
-    def put(self, request, id):
-        profile = self.get_object(id)
-        serializer = ProfileSerializer(
-            profile, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
