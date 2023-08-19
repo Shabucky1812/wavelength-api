@@ -10,6 +10,7 @@ class TrackSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     average_score = serializers.SerializerMethodField()
     reviews_count = serializers.SerializerMethodField()
+    review_id = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -30,10 +31,19 @@ class TrackSerializer(serializers.ModelSerializer):
             return len(track_reviews)
         return 0
 
+    def get_review_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            review = Review.objects.filter(
+                owner=user, track=obj
+            ).first()
+            return review.id if review else None
+        return None
+
     class Meta:
         model = Track
         fields = [
             'id', 'owner', 'track_ref', 'title', 'artist', 'cover_art',
             'genre', 'opinion', 'is_owner', 'profile_id', 'profile_image',
-            'average_score', 'reviews_count'
+            'average_score', 'reviews_count', 'review_id',
         ]
