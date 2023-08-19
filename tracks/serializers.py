@@ -9,7 +9,7 @@ class TrackSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     average_score = serializers.SerializerMethodField()
-    reviews_count = serializers.SerializerMethodField()
+    reviews_count = serializers.ReadOnlyField()
     review_id = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
@@ -24,12 +24,6 @@ class TrackSerializer(serializers.ModelSerializer):
                 scores.append(review.score)
             return round(sum(scores) / len(scores))
         return None
-
-    def get_reviews_count(self, obj):
-        track_reviews = Review.objects.filter(track=obj.id)
-        if track_reviews:
-            return len(track_reviews)
-        return 0
 
     def get_review_id(self, obj):
         user = self.context['request'].user
