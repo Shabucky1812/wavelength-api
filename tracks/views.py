@@ -12,11 +12,17 @@ class TrackList(generics.ListCreateAPIView):
         reviews_count=Count('review', distinct=True),
     ).order_by('-created_at')
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        filters.SearchFilter,
     ]
     ordering_fields = [
         'reviews_count',
         'review__reviewed_at'
+    ]
+    search_fields = [
+        'owner__username',
+        'title',
+        'artist'
     ]
 
     def perform_create(self, serializer):
