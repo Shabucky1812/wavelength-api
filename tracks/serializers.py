@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from tracks.models import Track
 from reviews.models import Review
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
 class TrackSerializer(serializers.ModelSerializer):
@@ -11,6 +12,7 @@ class TrackSerializer(serializers.ModelSerializer):
     average_score = serializers.SerializerMethodField()
     reviews_count = serializers.ReadOnlyField()
     review_id = serializers.SerializerMethodField()
+    created_at = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -34,10 +36,13 @@ class TrackSerializer(serializers.ModelSerializer):
             return review.id if review else None
         return None
 
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
+
     class Meta:
         model = Track
         fields = [
             'id', 'owner', 'track_ref', 'title', 'artist', 'cover_art',
             'genre', 'opinion', 'is_owner', 'profile_id', 'profile_image',
-            'average_score', 'reviews_count', 'review_id',
+            'average_score', 'reviews_count', 'review_id', 'created_at'
         ]
