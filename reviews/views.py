@@ -1,14 +1,25 @@
-from rest_framework import generics, permissions, serializers
+from rest_framework import generics, permissions, serializers, filters
 from wavelength.permissions import IsOwnerOrReadOnly
 from .models import Review
 from .serializers import ReviewSerializer, ReviewDetailSerializer
 from django.db import IntegrityError
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ReviewList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
+    filter_backends = [
+        filters.OrderingFilter,
+        DjangoFilterBackend
+    ]
+    ordering_fields = [
+        'score'
+    ]
+    filterset_fields = [
+        'track'
+    ]
 
     def perform_create(self, serializer):
         try:
