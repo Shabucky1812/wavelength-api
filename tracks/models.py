@@ -3,7 +3,13 @@ from django.contrib.auth.models import User
 
 
 class Track(models.Model):
-
+    """
+    Track model - represents one instance of a shared track.
+    Related to 'owner' - the django User model.
+    Instances of the Track model are ordered by the time they were
+    created, with newer instances being listed first.
+    """
+    # available genre choices for the 'genre' field
     genre_choices = [
         (0, 'No genre'), (1, 'Pop'), (2, 'Rock'),
         (3, 'Hip-Hop'), (4, 'Country'), (5, 'R&B'),

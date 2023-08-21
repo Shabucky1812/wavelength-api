@@ -41,7 +41,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         receives the id of the relevant Follower instance if they are.
         returns None if the user is not logged in/not following the
         Profile. returns the id of the relevant Follower instance if
-        the current user is following the owner of the Profile instance,
+        the current user is following the owner of the Profile instance.
         """
         user = self.context['request'].user
         if user.is_authenticated:
