@@ -7,7 +7,7 @@ from .serializers import FollowerSerializer
 class FollowerList(generics.ListCreateAPIView):
     """
     Lists instances of the Follower model and renders a form to
-    create a new Follower Instance if the user is logged in.
+    create a new Follower instance if the user is logged in.
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Follower.objects.all()

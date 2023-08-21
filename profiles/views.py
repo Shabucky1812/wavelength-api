@@ -8,7 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class ProfileList(generics.ListAPIView):
     """
-    Lists the instances of the Profile modeland orders them by
+    Lists the instances of the Profile model and orders them by
     time created with newer instances appearing first.
     Adds ordering_fields to let users order by the following fields:
     tracks_count, followers_count, following_count, as well as by how
