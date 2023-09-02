@@ -25,6 +25,7 @@ class TrackSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    genre = serializers.ReadOnlyField(source='get_genre_id_display')
     average_score = serializers.SerializerMethodField()
     reviews_count = serializers.ReadOnlyField()
     review_id = serializers.SerializerMethodField()
@@ -82,7 +83,7 @@ class TrackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Track
         fields = [
-            'id', 'owner', 'track_ref', 'title', 'artist', 'cover_art',
+            'id', 'owner', 'title', 'artist', 'cover_art', 'genre_id',
             'genre', 'opinion', 'is_owner', 'profile_id', 'profile_image',
             'average_score', 'reviews_count', 'review_id', 'created_at'
         ]

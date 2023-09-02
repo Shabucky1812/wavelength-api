@@ -20,12 +20,11 @@ class Track(models.Model):
     ]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    track_ref = models.URLField(blank=True)
     title = models.CharField(max_length=50)
     artist = models.CharField(max_length=50)
     cover_art = models.ImageField(
         upload_to='images/', default='../no_image_found_yzsd7j')
-    genre = models.IntegerField(
+    genre_id = models.IntegerField(
         choices=genre_choices, default=0
     )
     opinion = models.TextField(blank=True, max_length=500)

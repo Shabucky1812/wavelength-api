@@ -36,7 +36,7 @@ class TrackList(generics.ListCreateAPIView):
         'artist'
     ]
     filterset_fields = [
-        'genre',
+        'genre_id',
         'owner__profile',
         'review__owner__profile'
     ]
