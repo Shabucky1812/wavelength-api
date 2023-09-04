@@ -39,6 +39,7 @@ class TrackList(generics.ListCreateAPIView):
         'genre_id',
         'owner__profile',
         'review__owner__profile'
+        'owner__followed__owner__profile',
     ]
 
     def perform_create(self, serializer):
