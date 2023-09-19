@@ -1,4 +1,4 @@
-# Star Seekers
+# Wavelength API
 
 ## Contents
 
@@ -91,7 +91,56 @@ For planning the data model for Wavelength, I created this ER diagram (using [di
 
 ### Existing Features
 
+As the API is intended to serve as the backend for the Wavelength website, no navigation is present throughout the development version. Instead each page is accessed by going to certain urls. The features below are associated with these urls.
+
+- **F01 - Welcome Message**  
+  ![Root route](/documentation/readme/root_route.png)  
+  The root route ("/") for the API renders the above content, a simple welcome message.
+
+- **F02 - Log in + out**  
+  ![Login route](/documentation/readme/log_in.png)  
+  The login route ("/api-auth/login/?next=/") for the API renders the above content. This is just a simple login form provided by Django Rest Framework. Once logged in,the log in button that was previously located at the right of the header becomes a dropdown that lets the user log out.
+
+- **F03 - Profiles List**  
+  ![Profiles list view header](/documentation/readme/profiles_list_header.png)  
+  ![Profiles list view](/documentation/readme/profiles_list.png)  
+  The profiles list route ("/profiles/") for the API renders the above content. The filter option in the header lets the user order the profiles (ascending/descending) by: tracks_count, followers_count and following_count. The user can also search the profiles by username and filter them by users they are following and are being followed by. Below the header, the profiles are listed by the time they were created by default.
+
+- **F04 - Profile Detail**  
+  ![Profile detail view](/documentation/readme/profile_detail.png)  
+  The profile detail route ("/profiles/:id/") for the API renders the above content. This view renders the details of a single profile, decided by the id in the url. If the user is the owner of the profile, they can use the form at the bottom to change the profiles image.
+
+- **F05 - Tracks List**  
+  ![Tracks list view](/documentation/readme/tracks_list.png)  
+  ![Track create form](/documentation/readme/tracks_create_form.png)  
+  The tracks list route ("/tracks/") for the API renders the above content. The filter option in the header lets the user order the tracks (ascending/descending) by: reviews_count, and the time the reviews were made. They can also search the tracks by title and owner and filter them by genre. Below the header, the tracks are listed by the time they were created by default. The create form can be used by logged in users to create a new Track instance.
+
+- **F06 - Track Detail**  
+  ![Track detail view](/documentation/readme/track_detail.png)  
+  ![Track edit form](/documentation/readme/track_edit_form.png)  
+  The track detail route ("/tracks/:id/") for the API renders the above content. This view renders the details of a single track, decided by the id in the url. If the user is the owner of the track, they can use the form at the bottom to change the track data or use the delete button to delete the track and all of it's associated reviews.
+
+- **F07 - Reviews List**  
+  ![Reviews list view](/documentation/readme/reviews_list.png)  
+  ![Review create form](/documentation/readme/review_create_form.png)  
+  The reviews list route ("/reviews/") for the API renders the above content. The filter option in the header lets the user order the reviews (ascending/descending) by score and filter the reviews by the track they are for. Below the header, the reviews are listed by the time they were created by default. The create form can be used by logged in users to create a new Review instance. Importantly, each user can only review each a track once.
+
+- **F08 - Review Detail**  
+  ![Review detail view](/documentation/readme/review_detail.png)  
+  The review detail route ("/review/:id/") for the API renders the above content. This view renders the details of a single review, decided by the id in the url. If the user is the owner of the review, they can use the form at the bottom to change the review data or use the delete button to delete the review.
+
+- **F09 - Followers List**  
+  ![Followers list view](/documentation/readme/followers_list.png)  
+  The followers list route ("/followers/") for the API renders the above content. The existing follower instances are listed by the time they were created at and a create form at the bottom lets the user follow other profiles. Importantly, users cannot follow themselves and they cannot follow the same user twice.
+
+- **F10 - Follower Detail**
+  ![Follower detail view](/documentation/readme/follower_detail.png)  
+  The follower detail route ("/followers/:id/") for the API renders the above content. The data of the follower instance targeted by the id in the url is displayed and a delete button is available to the owner of the instance.
+
 ### Future Implementations
+
+The development of this API is very much driven by the needs of the Wavelength front-end. The features available right now fully meet the requirements of the project, so no major future implementations are planned/necessary for the moment. Should any changes be planned for Wavelength, this API will be updated accordingly.
+If I decided to lean further into the social-media aspect of Wavelength, then I could create a new messages app which would let users message one another using the platform, however, I am happy with where Wavelength is currently.
 
 ## Technologies Used
 
