@@ -171,6 +171,79 @@ If I decided to lean further into the social-media aspect of Wavelength, then I 
 
 ## Deployment
 
+To clone this repository paste `git clone https://github.com/Shabucky1812/wavelength-api.git` into the terminal of the editor you are using. Then follow the steps below to get everything up and running.
+
+### Configuring environment variables
+
+- Firstly, you need to install the project dependencies listed in the requirements.txt file. To do this paste `pip install -r requirements.txt` into the terminal and hit enter.
+- Next, you need to create a new file at lowest level of your workspace (the same level as README.md) called **env.py**.
+- IMPORTANT: the env.py file will be used to store hidden variables such as your SECRET_KEY, to prevent any security issues you must ensure that your workspace contains a **.gitignore** file and that **env.py** is listed within it. This will ensure that your env.py file is not pushed to GitHub and made publicly available.
+- Within **env.py**, import the os module by adding `import os` at the top of the file.
+- Now, you need to create 3 environment variables using this code format: `os.environ['variable_name'] = 'value'` for each. The 3 **variable_name**'s should be: **SECRET_KEY**, **CLOUDINARY_URL**, and finally **DEV**.
+- As for the **values**, leave **CLOUDINARY_URL** blank for now. Set the **value** of the **DEV** variable to '1' and set the **SECRET_KEY** variable to any random string of characters you like, do not share this value with anyone.
+
+### Setting up your ElephantSQL database
+
+- Now, lets move on to setting up your PostgreSQL database.
+- First, use this [link](https://www.elephantsql.com/) to reach the ElephantSQL website.
+- Click on the **Log In** button to get signed in, if you already have an account then sign in as usual. If not then I recommend just using GitHub to sign in by pressing the **Sign In with GitHub** button. A window may pop-up asking for verification, if so, confirm your agreement.
+- You are now at the ElephantSQL dashboard, from this screen click the **Create New Instance** button.
+- In the **Name** field, enter a name for your database, this is usually the project name so I would suggest 'wavelength_api'. In the **Plan** field, select whatever plan works best for you. I used the free **Tiny Turtle** plan but if you regularly use ElephantSQL, feel free to use another.
+- Ignore the **Tags** field and click on the **Select Region** button to move on.
+- In the **Data center** field, choose any data center that is available and near you, it doesn't really matter which. Press **Review** to continue.
+- Finally, on the review screen, ensure your details are correct and hit **Create instance**.
+- You will now be returned to the dashboard. From here, click on your newly created instance to be taken to it's details screen.
+- Remember the URL from the **URL** field as you will need it later when deploying to heroku.
+
+### Connecting to Cloudinary
+
+- The last environment variable that needs configuring is the **CLOUDINARY_URL**. We will set that up now.
+- Use this [link](https://cloudinary.com/) to reach the Cloudinary website. From here you need to either log in using the **Login** button or create an account if you don't yet have one using **SIGN UP FOR FREE**.
+- Once authenticated, navigate to your cloudinary dashboard under **Programmable Media > Dashboard**.
+- Copy the URL within the **API Environment variable** card and use this as the value for your **CLOUDINARY_URL** variable in **env.py**. IMPORTANT: the url you copy will include 'CLOUDINARY_URL=' at the start, this is unnecessary and should be deleted. The url you are left with as your value should start with 'cloudinary://'.
+
+### How to make and push changes
+
+- To save all of your files and make migrations paste the command `python3 manage.py migrate` into your terminal.
+- Your local workspace should now be runnable. To view a local version of the website, use the command `python3 manage.py runserver` and click **Open Browser** on the pop-up that appears.
+- If you wish to make any changes to the code then you can use git to save and push those changes using the following steps:
+  - Save your changes to a file using **CTRL + S**.
+  - In the terminal type `git add .` to push all changes or you can use `*git add 'file_name_here'` to be more specific.
+  - Commit your changes using `git commit -m "'commit_message_here'"`.
+  - Finally, push your changes to your main GitHub repository using `git push`.
+
+### Deploy with Heroku
+
+- Lastly, follow these steps to deploy the website to Heroku.
+- Use this link to log-in/sign-up to [Heroku](https://id.heroku.com/login).
+- From the Heroku dashboard, select the **New** dropdown from the top-right, and then click **Create new app**.
+- Enter a name into the **App name** input, select your region from the **Region** dropdown, and then click **Create app**.
+- From the tabs near the top of the screen, select **Settings** and scroll down to the **Config Vars** sub-heading.
+- Press **Reveal Config Vars**.
+- You now need to re-create the following variables from your **env.py** file as config vars: **CLOUDINARY_URL** and **SECRET_KEY**.
+- Enter these variables as keys for each config var and paste the values from your **env.py** file as the matching values.
+- You will additionally need to create 5 new config vars:
+
+  - KEY: **ALLOWED_HOST** - VALUE: **'this will be the live link of the deployed API once deployed (without the 'https://')'**
+  - KEY: **CLIENT_ORIGIN** - VALUE: **'this will be the live link of the front end website'**
+  - KEY: **CLIENT_ORIGIN_DEV** - VALUE: **'this will be the dev link of the front end website**
+  - KEY: **DATABASE_URL** - VALUE: **''this will be the url from the ElephantSQl url field refrenced earlier**
+  - KEY: **DISABLE_COLLECTSTATIC** - VALUE: **1**
+
+- Now, scroll back up and select the **Deploy** tab.
+- Under the **Deployment method** sub-heading, select **GitHub**.
+- Search for the GitHub repo for your application and then click **Connect**.
+- You can now deploy your application in two ways:
+  - Select **Enable Automatic Deploys** to automatically deploy your program. This means that whenever a change is pushed, Heroku will automatically update your live app.
+  - This project was manually deployed by selecting **Deploy Branch** under the **Manual Deploy** sub-heading. A manually deployed site will only update with new pushes when re-deployed next.
+- Once Heroku has deployed your application, it will present you with a link to the live site.
+- IMPORTANT: After your first deploy, Heroku may automatically add its Heroku Postgres add-on to your application. This add-on is not free and you will be charged if you leave it. To prevent this from happening after your first deploy:
+  - Head over to your application's **Resources** tab.
+  - Check under the **Add-ons** subheading for the Heroku Postgres add-on.
+  - If the add-on is present, delete it to avoid being charged. The API will still function because of ElephantSQL.
+
+You now have a deployed API, however it may not be much use until you clone the front end for it to interact with. To replicate full Wavelength functionality, [use this link](https://github.com/Shabucky1812/wavelength-front#deployment) to find the deployment steps for the Wavelength front end.
+
 ## Testing
 
 Please find the testing write-up for this project in [this Testing Document](testing.md).
@@ -179,4 +252,4 @@ Please find the testing write-up for this project in [this Testing Document](tes
 
 ### Contents
 
-### Acknowledgements
+All of the code for this API was written by me, [Shaun Buck](https://github.com/Shabucky1812), although I extend my thanks to Code Institute for the drf-api walkthrough which was a great help when structuring this project.
