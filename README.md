@@ -1,5 +1,11 @@
 # Wavelength API
 
+Wavelength API provides the backend functionality needed by the Wavelength website (found using the link below). How a user behaves with profiles, tracks, reviews, and followers is defined here and made available to the Wavelength frontend by certain url endpoints. As this repo is only the backend for the project, to find a more thorough explanation of how the features shown in this repo interact directly with users, please head over to the main repo.
+
+[Find Wavelength's main repo here](https://github.com/Shabucky1812/wavelength-front)
+
+To view the planning board used throughout this project's creation, [use this link](https://github.com/users/Shabucky1812/projects/3).
+
 ## Contents
 
 - [UX](#ux)
@@ -133,7 +139,7 @@ As the API is intended to serve as the backend for the Wavelength website, no na
   ![Followers list view](/documentation/readme/followers_list.png)  
   The followers list route ("/followers/") for the API renders the above content. The existing follower instances are listed by the time they were created at and a create form at the bottom lets the user follow other profiles. Importantly, users cannot follow themselves and they cannot follow the same user twice.
 
-- **F10 - Follower Detail**
+- **F10 - Follower Detail**  
   ![Follower detail view](/documentation/readme/follower_detail.png)  
   The follower detail route ("/followers/:id/") for the API renders the above content. The data of the follower instance targeted by the id in the url is displayed and a delete button is available to the owner of the instance.
 
@@ -146,8 +152,21 @@ If I decided to lean further into the social-media aspect of Wavelength, then I 
 
 ### Languages Used
 
+- [Python](https://www.python.org/)
+
 ### Frameworks, Libraries, and Programs Used
 
+- [Django Rest Framework](https://www.django-rest-framework.org/) - Used as this project's main python framework.
+- [dj-rest-auth](https://dj-rest-auth.readthedocs.io/en/latest/installation.html) - Used for authentication.
+- [django-allauth](https://allauth.org/) - Used for authentication.
+- [djangorestframework-simplejwt](https://pypi.org/project/djangorestframework-simplejwt/) - Used to handle JWT tokens.
+- [dj_database_url](https://pypi.org/project/dj-database-url/) - Used to connect to postgres database.
+- [django-cors-headers](https://pypi.org/project/django-cors-headers/) - Used to connect API to frontend.
+- [Gunicorn](https://gunicorn.org/) - Used as the web server that allows Django to run on Heroku.
+- [Cloudinary](https://cloudinary.com/) - Used to store all images uploaded to the website (e.g. cover_art + profile_images).
+- [Pillow](https://pypi.org/project/Pillow/) - Used for additional image processing.
+- [ElephantSQL](https://www.elephantsql.com/) - Used to create PostgreSQL database.
+- [Heroku](https://www.heroku.com/) - Used to deploy and host the website.
 - [diagrams.net](https://www.diagrams.net/) - Used to create ER diagrams during planning of this website.
 
 ## Deployment
