@@ -102,8 +102,27 @@ All of the custom python written for this API passes through [this PEP8 linter](
 
 To show how the features of this api meet the requirements of the user stories, I have created this chart that demonstrates which features are relevant to each user story:
 
-| User Story | Achieved | Relevant Features |
-| ---------- | -------- | ----------------- |
+| User Story                      | Achieved | Relevant Features                            |
+| ------------------------------- | -------- | -------------------------------------------- |
+| US01 - Create Profile           | YES      | F02 - Log in + out (\*additional note below) |
+| US02 - Edit Profile             | YES      | F04 - Profile Detail                         |
+| US03 - Delete Profile           | NO       | (\*\*read more about below)                  |
+| US04 - View Profiles            | YES      | F03 - Profiles List, F04 - Profile Detail    |
+| US05 - Follow Users             | YES      | F09 - Followers List, F10 - Follower Detail  |
+| US06 - Unfollow Users           | YES      | F09 - Followers List, F10 - Follower Detail  |
+| US07 - Share Tracks             | YES      | F05 - Tracks List                            |
+| US08 - Edit Track               | YES      | F06 - Track Detail                           |
+| US09 - Delete Track             | YES      | F06 - Track Detail                           |
+| US10 - View Tracks (list view)  | YES      | F05 - Tracks List                            |
+| US11 - View Track (detail view) | YES      | F06 - Track Detail                           |
+| US12 - Create Review            | YES      | F07 - Reviews List                           |
+| US13 - Edit Review              | YES      | F08 - Review Detail                          |
+| US14 - Delete Review            | YES      | F08 - Review Detail                          |
+| US15 - View Reviews             | YES      | F07 - Reviews List, F08 - Review Detail      |
+
+\* currently, for the backend, new users can only be created by creating a new superuser from the workspace terminal. This is fine for the backend, however users CAN create new accounts from the front end (which you can read more about from the frontend repo's README).
+
+\*\* I ultimately decided not to include profile deletion in this version of the project. It's not a necessary or major feature and I wanted to spend more time on the more important features (tracks/reviews). If the site was to develop popularity, then I would consider adding this feature.
 
 ### Functionality
 
