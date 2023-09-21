@@ -31,6 +31,15 @@ class TrackSerializer(serializers.ModelSerializer):
     review_id = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
 
+    def validate_cover_art(self, value):
+        """
+        Prevents users from uploading large images to the site, ensuring better
+        performance.
+        """
+        if value.size > 2 * 1024 * 1024:
+            raise serializers.ValidationError('Image size larger than 2MB!')
+        return value
+
     def get_is_owner(self, obj):
         """
         Determines if the current user is the owner of the Track
