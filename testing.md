@@ -126,13 +126,38 @@ To show how the features of this api meet the requirements of the user stories, 
 
 ### Functionality
 
-| Test Label | Test Action | Expected Outcome | Test Outcome |
-| ---------- | ----------- | ---------------- | ------------ |
+| Test Label                    | Test Action                                                     | Expected Outcome                                | Test Outcome |
+| ----------------------------- | --------------------------------------------------------------- | ----------------------------------------------- | ------------ |
+| URLs render correct views     | Manually visit every URL                                        | All URLs should render the correct views        | PASS         |
+| Profile list filtering        | Attempt to use all Profile filter options                       | The profile list should be rendered accordingly | PASS         |
+| Conditional profile edit form | View a profile detail page whilst logged in as a different user | The edit form should not render                 | PASS         |
+| Profile edit works correctly  | Edit a profile using the form                                   | The changes should be saved                     | PASS         |
+| Create follow works correctly | Try to follow a user                                            | New follower instance should be created         | PASS         |
+| Follower duplicates prevented | Attempt to follow a user already followed                       | The API should raise an Integrity Error         | PASS         |
+| Follower delete works         | Delete a follower instance                                      | The instance should be deleted                  | PASS         |
+| Track list filtering          | Attempt to use all Track filter options                         | The track list should be rendered accordingly   | PASS         |
+| Create track works correctly  | Attempt to share a track with valid data                        | The track should be created                     | PASS         |
+| Cover art validation          | Try to create a track with a large image                        | The API shouldn't accept the image              | PASS         |
+| Conditional track edit form   | View a track detail page whilst logged in as a different user   | The edit form should not render                 | PASS         |
+| Track edit form works         | Edit a track using the form                                     | The changes should be saved                     | PASS         |
+| Track delete works            | Delete a track                                                  | The track instance should be deleted            | PASS         |
+| Review list filtering         | Attempt to use all Review filter options                        | The review list should be rendered accordingly  | PASS         |
+| Create review works correctly | Attempt to create a review with valid data                      | The review should be created                    | PASS         |
+| Review duplicates prevented   | Attempt to create a duplicate review                            | The API should prevent the review creation      | PASS         |
+| Conditional review edit form  | View a review detail page whilst logged in as a different user  | The edit form should not render                 | PASS         |
+| Review edit form works        | Edit a review using the form                                    | The changes should be saved                     | PASS         |
+| Review delete works           | Delete a review                                                 | The review instance should be deleted           | PASS         |
+| Log in/out                    | Attempt to log in and out                                       | Should work as expected                         | PASS         |
 
 ## Bugs
 
 ### Known Bugs
 
+As far as I can tell from my testing, this API currently suffers from no bugs.
+
 ### Solved Bugs
+
+- When the reviews app was first created, I had a small issue preventing users from creating multiple reviews for the same track. I fixed this by adding the 'unique_together' field to the reviews model Meta class and checking for an integrity error before saving the review instance.
+- When the genre field was first created, I had an issue with the genre displaying as an integer value because I used an integer field with a 'choices' field to determine the genre options. I fixed this by splitting the genre field into two (genre_id, genre) and using the serializer to set the new 'genre' field to the display value of the 'genre_id' field.
 
 Return to [README](README.md)
